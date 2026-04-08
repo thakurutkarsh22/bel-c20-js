@@ -261,4 +261,3 @@ true isSunHot
 
 
 
-// Example 5:
