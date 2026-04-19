@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTTP request / response flows</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0f1419;
+      --surface: #1a2332;
+      --border: #2d3a4d;
+      --text: #e8eef5;
+      --muted: #8b9cb3;
+      --accent-2xx: #34d399;
+      --accent-3xx: #fbbf24;
+      --arrow: #64748b;
+      --glow-2xx: rgba(52, 211, 153, 0.12);
+      --glow-3xx: rgba(251, 191, 36, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "DM Sans", system-ui, sans-serif;
+      background: radial-gradient(ellipse 120% 80% at 50% -20%, #1e3a5f 0%, var(--bg) 55%);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 2.5rem 1.25rem 3rem;
+    }
+
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    header h1 {
+      font-size: 1.65rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.5rem;
+    }
+
+    header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem 1.5rem 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    .card--2xx {
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 0 0 1px var(--glow-2xx);
+    }
+
+    .card--3xx {
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 0 0 1px var(--glow-3xx);
+    }
+
+    .card-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .card-label span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .card--2xx .card-label span.dot {
+      background: var(--accent-2xx);
+      box-shadow: 0 0 12px var(--accent-2xx);
+    }
+
+    .card--3xx .card-label span.dot {
+      background: var(--accent-3xx);
+      box-shadow: 0 0 12px var(--accent-3xx);
+    }
+
+    .card h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin: 0 0 1.25rem;
+      letter-spacing: -0.01em;
+    }
+
+    .card--2xx h2 {
+      color: var(--accent-2xx);
+    }
+
+    .card--3xx h2 {
+      color: var(--accent-3xx);
+    }
+
+    .flow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .node {
+      flex: 0 0 auto;
+      min-width: 120px;
+      padding: 1rem 1.1rem;
+      background: rgba(15, 20, 25, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .node small {
+      display: block;
+      margin-top: 0.35rem;
+      font-weight: 400;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .arrow-block {
+      flex: 1 1 80px;
+      min-width: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .arrow-line {
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--arrow), var(--accent-2xx));
+      position: relative;
+      border-radius: 1px;
+    }
+
+    .card--3xx .arrow-line.req {
+      background: linear-gradient(90deg, var(--arrow), var(--accent-3xx));
+    }
+
+    .arrow-line.res {
+      background: linear-gradient(270deg, var(--arrow), var(--accent-2xx));
+    }
+
+    .card--3xx .arrow-line.res {
+      background: linear-gradient(270deg, var(--arrow), var(--accent-3xx));
+    }
+
+    .arrow-line::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 5px solid transparent;
+      border-left-color: var(--accent-2xx);
+    }
+
+    .card--3xx .arrow-line.req::after {
+      border-left-color: var(--accent-3xx);
+    }
+
+    .arrow-line.res::after {
+      right: auto;
+      left: 0;
+      border-left-color: transparent;
+      border-right-color: var(--accent-2xx);
+    }
+
+    .card--3xx .arrow-line.res::after {
+      border-right-color: var(--accent-3xx);
+    }
+
+    .tag {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 0.75rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: 8px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .card--2xx .badge {
+      background: rgba(52, 211, 153, 0.15);
+      color: var(--accent-2xx);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+    }
+
+    .card--3xx .badge {
+      background: rgba(251, 191, 36, 0.12);
+      color: var(--accent-3xx);
+      border: 1px solid rgba(251, 191, 36, 0.35);
+    }
+
+    .note {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .note code {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.8em;
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.25);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Client ↔ server over HTTP</h1>
+      <p>Same idea as your sketch: request out, response back — with status codes in the response.</p>
+    </header>
+
+    <section class="card card--2xx" aria-labelledby="h-2xx">
+      <div class="card-label"><span class="dot"></span> Status codes</div>
+      <h2 id="h-2xx">2xx — successful response</h2>
+      <div class="flow">
+        <div class="node">
+          Client
+          <small>browser, app, Postman…</small>
+        </div>
+        <div class="arrow-block">
+          <span class="tag">HTTP request</span>
+          <div class="arrow-line req" aria-hidden="true"></div>
+          <span class="tag">e.g. GET /api/cat</span>
+        </div>
+        <div class="node">
+          Server
+          <small>Express, API…</small>
+        </div>
+      </div>
+      <div class="flow" style="margin-top: 1.25rem; flex-direction: row-reverse;">
+        <div class="node" style="opacity: 0.85">Client</div>
+        <div class="arrow-block">
+          <span class="tag">HTTP response</span>
+          <div class="arrow-line res" aria-hidden="true"></div>
+          <span class="tag">body + headers</span>
+        </div>
+        <div class="node" style="opacity: 0.85">Server</div>
+      </div>
+      <div style="text-align: center">
+        <span class="badge">200 OK · family 2xx = success</span>
+      </div>
+      <p class="note">
+        The <strong>status code</strong> lives on the response (e.g. <code>200</code>). The client uses it to know the request succeeded.
+      </p>
+    </section>
+
+    <section class="card card--3xx" aria-labelledby="h-3xx">
+      <div class="card-label"><span class="dot"></span> Redirects</div>
+      <h2 id="h-3xx">3xx — redirect (client should go elsewhere)</h2>
+      <div class="flow">
+        <div class="node">
+          Client
+          <small>follows <code>Location</code></small>
+        </div>
+        <div class="arrow-block">
+          <span class="tag">HTTP request</span>
+          <div class="arrow-line req" aria-hidden="true"></div>
+          <span class="tag">e.g. GET /old-path</span>
+        </div>
+        <div class="node">
+          Server
+          <small>“moved” or “see other”</small>
+        </div>
+      </div>
+      <div class="flow" style="margin-top: 1.25rem; flex-direction: row-reverse;">
+        <div class="node" style="opacity: 0.85">Client</div>
+        <div class="arrow-block">
+          <span class="tag">HTTP response</span>
+          <div class="arrow-line res" aria-hidden="true"></div>
+          <span class="tag"><code>Location: https://…/signin</code></span>
+        </div>
+        <div class="node" style="opacity: 0.85">Server</div>
+      </div>
+      <div style="text-align: center">
+        <span class="badge">302 Found · family 3xx = redirect</span>
+      </div>
+      <p class="note">
+        The server answers with a <strong>3xx</strong> and often a <code>Location</code> header. The browser then issues a <strong>new request</strong> to that URL (your “tidy URL” flow).
+      </p>
+    </section>
+
+    <footer>BEL C20 · Express</footer>
+  </div>
+</body>
+</html>
