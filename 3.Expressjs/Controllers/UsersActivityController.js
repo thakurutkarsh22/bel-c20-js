@@ -1,4 +1,5 @@
 const users = require("../data");
+const UserActivityService = require("../Service/UserActivityService");
 
 
 
@@ -6,10 +7,15 @@ function getUserByName (req, res, next) {
     const parms  = req.params; // { name: 'John Doe' }
     const searchedName = parms.name;
     
-    const user = users.find((user) => {
-        // check for substring (case-insensitive)
-        return user.name.toLowerCase().includes(searchedName.toLowerCase());
-    });
+    //1.  talked to DB - services 
+    // 2. Logic - serivices
+
+    // const user = users.find((user) => {
+    //     // check for substring (case-insensitive)
+    //     return user.name.toLowerCase().includes(searchedName.toLowerCase());
+    // });
+
+    const user = UserActivityService.getUserByName(searchedName);
 
     if (!user) {
         return res.status(404).json({
