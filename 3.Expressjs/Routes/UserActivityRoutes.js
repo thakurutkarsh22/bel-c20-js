@@ -1,5 +1,6 @@
 const express = require('express');
 const { getUsersByGender, getUserByName, getAllUsers } = require('../Controllers/UsersActivityController');
+const { passwordBasedAuthMiddleware } = require('../Middleware/PasswordBasedAuthMiddleware');
 const router = express.Router();
 
 
@@ -9,12 +10,12 @@ const router = express.Router();
 // query params - after ? 
 // https://www.google.com/search?q=rohit
 
-router.get("/", getUsersByGender);
+router.get("/", passwordBasedAuthMiddleware,  getUsersByGender);
 
 
 // get all users 
 
-router.get("/allUsers",  getAllUsers);
+router.get("/allUsers", passwordBasedAuthMiddleware, getAllUsers);
 
 
 // url params - after :

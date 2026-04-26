@@ -6,6 +6,4 @@ router.get("/", HomeResponse)
 router.get("/home", HomeResponse)
 router.get("/abouts", AboutResponse)
 
-
-router.post("/abouts", AboutResponse)
 module.exports = router;

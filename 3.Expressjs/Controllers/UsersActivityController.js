@@ -1,8 +1,8 @@
 const users = require("../data");
 
-const SERVER_PASSWORD = "asdf1234";
 
-function getUserByName (req, res) {
+
+function getUserByName (req, res, next) {
     const parms  = req.params; // { name: 'John Doe' }
     const searchedName = parms.name;
     
@@ -26,21 +26,6 @@ function getUserByName (req, res) {
 
 
 function getUsersByGender (req, res) {
-
-
-    const headers = req.headers; // { 'content-type': 'application/json', ...  authorization: 'asdf1234' }
-    const password = headers.authorization; // asdf1234
-    console.log("headers", headers);
-
-    if(password !== SERVER_PASSWORD) {
-        return res.status(401).json({
-            success: false,
-            message: "Unauthorized"
-        });
-    }
-
-
-
     const query = req.query; // { gender: 'male' } }
     const searchedGender = query.gender
 
@@ -63,28 +48,12 @@ function getUsersByGender (req, res) {
 
 }
 
-function getAllUsers (req, res) {
-
-    const headers = req.headers; // { 'content-type': 'application/json', ...  authorization: 'asdf1234' }
-    const password = headers.authorization; // asdf1234
-    console.log("headers", headers);
-
-    if(password !== SERVER_PASSWORD) {
-        return res.status(401).json({
-            success: false,
-            message: "Unauthorized"
-        });
-    }
-
+function getAllUsers (req, res, next) {
     res.json({
         success: true,
         data: users,
         size: users.length
     })
-}
-
-function checkPassword() {
-    
 }
 
 

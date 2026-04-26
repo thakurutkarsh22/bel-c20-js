@@ -5,8 +5,11 @@
 const express = require('express');
 const HomeRoute = require('./Routes/HomeRoutes');
 const UserActivityRoute = require('./Routes/UserActivityRoutes');
+// load all the environment variables from the .env file to the process.env object
+require('dotenv').config()
 const server = express();
-const PORT = 8089;
+const PORT = process.env.SERVER_PORT;
+
 
 
 
@@ -16,7 +19,7 @@ server.use("/", HomeRoute)
 
 
 // (req, res ) => {} - callback function - request handler function
-server.get("/fitness", (req, res) => {
+server.get("/fitness", (req, res, next) => {
     const payload = {
         name: "akash",
         age: 28,
