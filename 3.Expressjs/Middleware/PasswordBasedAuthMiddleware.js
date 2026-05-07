@@ -24,3 +24,8 @@ function passwordBasedAuthMiddleware(req, res, next) {
 module.exports = {
     passwordBasedAuthMiddleware
 }
+
+// having password saved in localstorage is not a good idea.
+// because if someone get access to your localstorage (Xss - cross site scripting, CSRF - cross site request forgery)
+
+// solution for this 

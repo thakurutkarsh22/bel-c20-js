@@ -22,7 +22,7 @@
 
 // ------ I am create maggie and i want to eat it ------ BAD EXAMPLE 
 
-const time = Date.now();
+// const time = Date.now();
 
 // function log(message) {
 //     const timeStamp = ((Date.now() - time) / 1000).toFixed(1);
@@ -107,60 +107,60 @@ eatNoodles();
 
 
 
-function log(message) {
-    const timeStamp = ((Date.now() - time) / 1000).toFixed(1);
-    console.log(`[t = ${timeStamp}s]`, message);
-}
+// function log(message) {
+//     const timeStamp = ((Date.now() - time) / 1000).toFixed(1);
+//     console.log(`[t = ${timeStamp}s]`, message);
+// }
 
 
-// callback: () => { addNoodles()  }
+// // callback: () => { addNoodles()  }
 
-function boilWater(callback) {
-    log("Step 1: Start boiling water..  ");
-    setTimeout(() => {
-        log("Step 1: Done Boiling water");
+// function boilWater(callback) {
+//     log("Step 1: Start boiling water..  ");
+//     setTimeout(() => {
+//         log("Step 1: Done Boiling water");
 
-        if(callback) {
-            callback(); // addNoodles // addTastemaker // serverNoodles // eatNoodles
-        }
-    }, 1500);
-}
-
-
-function addNoodles(callback) {
-    log("Step 2: Start Adding noodles... ");
-    setTimeout(() => {
-        log("Step 2: Noodles are softened");
-
-        if(callback) {
-            callback();
-        }
-    }, 1000);
+//         if(callback) {
+//             callback(); // addNoodles // addTastemaker // serverNoodles // eatNoodles
+//         }
+//     }, 1500);
+// }
 
 
-    return undefined
-}
+// function addNoodles(callback) {
+//     log("Step 2: Start Adding noodles... ");
+//     setTimeout(() => {
+//         log("Step 2: Noodles are softened");
 
-function addTastemaker() {
-    log("Step 3: Start Adding tastemaker... ");
-    setTimeout(() => {
-        log("Step 3: Done mixing the tastemaker");
-    }, 800);
-}
+//         if(callback) {
+//             callback();
+//         }
+//     }, 1000);
 
-function serverNoodles() {
-    log("Step 4: Serving noodles ");
-    setTimeout(() => {
-        log("Step 4: done serving");
-    }, 800);
-}
 
-function eatNoodles() {
-    log("Step 5: Eat ");
-    setTimeout(() => {
-        log("Step 5: Done eating");
-    }, 1200);
-}
+//     return undefined
+// }
+
+// function addTastemaker() {
+//     log("Step 3: Start Adding tastemaker... ");
+//     setTimeout(() => {
+//         log("Step 3: Done mixing the tastemaker");
+//     }, 800);
+// }
+
+// function serverNoodles() {
+//     log("Step 4: Serving noodles ");
+//     setTimeout(() => {
+//         log("Step 4: done serving");
+//     }, 800);
+// }
+
+// function eatNoodles() {
+//     log("Step 5: Eat ");
+//     setTimeout(() => {
+//         log("Step 5: Done eating");
+//     }, 1200);
+// }
 
 // FOR UNDERSTANDING TAKE THIS EXAMPLE : BAD EXAMPLE it will not work 
 // boilWater( addNoodles() ); // 
@@ -226,5 +226,106 @@ function eatNoodles() {
 
 // const result = sum(utkarshGrade(), 20);
 // console.log(result, 'result');
+
+
+
+
+// ----------------------------------- PROMISE ---------------------------------
+
+// -------------- CONSUMPTION OF PROMISE --------------------
+
+const url = "https://jsonplaceholder.typicode.com/posts";
+const responsePromiseBill = fetch(url);
+
+
+// way 1 : consuming the promise
+// responsePromiseBill.then((response) => {
+//     console.log(response, 'response');
+// }).catch((error) => {
+//     console.log(error, 'error');
+// });
+
+// // way 2 : consuming the promise - use async await 
+// async function consumePromise() {
+//     const response = await responsePromiseBill;
+//     console.log(response, 'response');
+// }
+// consumePromise();
+
+// ---------- CREATE A PROMISE ---------------------------------
+
+
+// 1. promise constructor 
+
+// const pizzaHutBillPromise = new Promise((resolve, reject) => {
+
+
+//     // kitchen logic 
+//     // we prepare food - food is done in 3 seconds 
+
+//     setTimeout(() => {
+//         resolve("food is ready, Pizza");
+//     }, 3000);
+
+// });
+
+
+// // consumption
+
+// pizzaHutBillPromise.then((data) => {
+//     console.log(data, ' ill eat this now');
+// }).catch((error) => {
+//     console.log(error, 'error');
+// });
+
+
+// 2. With error 
+// const pizzaHutBillPromise = new Promise((resolve, reject) => {
+
+
+//     // kitchen logic 
+//     // we prepare food - kitchen got fire and we are not able to prepare food 
+
+//     setTimeout(() => {
+//         reject("kitchen got fire and we are not able to prepare food");
+//     }, 5000);
+
+// });
+
+
+// // consumption
+
+// pizzaHutBillPromise.then((data) => {
+//     console.log(data, ' ill eat this now');
+// }).catch((error) => {
+//     console.log(error, 'error compensate');
+// });
+
+
+
+// 2. async 
+
+
+async function prepareFood() {
+    return "pizza";
+}
+
+// way 1 : consuming the promise
+prepareFood().then((data) => {
+    console.log(data, 'ill eat this now');
+}).catch((error) => {
+    console.log(error, 'error compensate');
+});
+
+// way 2 : consuming the promise - use async await
+async function consumePromise() {
+    const data = await prepareFood();
+    console.log(data, 'ill eat this now');
+}
+consumePromise();
+
+// console.log(prepareFood(), 'prepareFood'); // no you are not getting data here. 
+
+
 
 

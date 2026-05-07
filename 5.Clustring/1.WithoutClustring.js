@@ -11,7 +11,7 @@ const server = http.createServer((req, res) => {
     } else if(req.url === '/math') {
 
         // mimic 10 sec of cpu work
-        for(let i = 0; i < 10000000000; i++) {
+        for(let i = 0; i < 20000000000; i++) {
             // do nothing
         }
         res.writeHead(200, { 'Content-Type': 'application/json' });
