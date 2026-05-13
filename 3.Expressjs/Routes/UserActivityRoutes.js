@@ -1,6 +1,8 @@
 const express = require('express');
 const { getUsersByGender, getUserByName, getAllUsers } = require('../Controllers/UsersActivityController');
 const { passwordBasedAuthMiddleware } = require('../Middleware/PasswordBasedAuthMiddleware');
+const { jwtBasedAuthMiddleware } = require('../Middleware/JwtBasedAuthMiddleware');
+const { requireRole } = require('../Middleware/RoleAuthMiddleware');
 const router = express.Router();
 
 
@@ -10,18 +12,21 @@ const router = express.Router();
 // query params - after ? 
 // https://www.google.com/search?q=rohit
 
-router.get("/", passwordBasedAuthMiddleware,  getUsersByGender);
+
+// should be admin and manger ONLY
+router.get("/", jwtBasedAuthMiddleware, requireRole("admin", "manager"),  getUsersByGender);
 
 
 // get all users 
-
-router.get("/allUsers", passwordBasedAuthMiddleware, getAllUsers);
+// should be admin only  
+router.get("/allUsers", jwtBasedAuthMiddleware, requireRole("admin"), getAllUsers);
 
 
 // url params - after :
 // get user by name 
 
-router.get("/:name", getUserByName);
+// everyone can see this (admin, manager, user)
+router.get("/:name", jwtBasedAuthMiddleware, requireRole("admin", "manager", "user"), getUserByName);
 
 
 
