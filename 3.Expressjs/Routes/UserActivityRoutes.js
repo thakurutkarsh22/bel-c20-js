@@ -4,6 +4,7 @@ const { passwordBasedAuthMiddleware } = require('../Middleware/PasswordBasedAuth
 const { jwtBasedAuthMiddleware } = require('../Middleware/JwtBasedAuthMiddleware');
 const { requireRole } = require('../Middleware/RoleAuthMiddleware');
 const router = express.Router();
+const passport = require('passport');
 
 
 
@@ -25,8 +26,12 @@ router.get("/allUsers", jwtBasedAuthMiddleware, requireRole("admin"), getAllUser
 // url params - after :
 // get user by name 
 
+const passportAuthMiddleware = passport.authenticate('jwt', { session: false });
+
+
 // everyone can see this (admin, manager, user)
-router.get("/:name", jwtBasedAuthMiddleware, requireRole("admin", "manager", "user"), getUserByName);
+// TODO: we need to change the req after we authenticate the user 
+router.get("/:name", passportAuthMiddleware, requireRole("admin", "manager", "user"), getUserByName);
 
 
 

@@ -2,19 +2,32 @@
 // npm init  - convert normal folder to npm repository/folder and create package.json file
 
 
+// load all the environment variables from the .env file to the process.env object
+// IMPORTANT: this must happen BEFORE we require any config that reads process.env
+require('dotenv').config()
+
 const express = require('express');
 const HomeRoute = require('./Routes/HomeRoutes');
 const AuthRoute = require('./Routes/AuthRoute');
 const UserActivityRoute = require('./Routes/UserActivityRoutes');
 const { default: mongoose } = require('mongoose');
-// load all the environment variables from the .env file to the process.env object
-require('dotenv').config()
+const passport = require('passport');
+const passportConfig = require('./Config/passport');
+const passportGithubConfig = require('./Config/passportGituhb');
+const passportGoogleConfig = require('./Config/passportGoogle');
 const server = express();
 const PORT = process.env.SERVER_PORT;
 
 
-// TODO: we will talk 
-server.use(express.json()); 
+// configure passport strategies (JWT + GitHub OAuth + Google OAuth)
+passportConfig(passport);
+passportGithubConfig(passport);
+passportGoogleConfig(passport);
+
+
+server.use(express.json());
+// hook passport into the express request lifecycle so passport.authenticate(...) works
+server.use(passport.initialize());
 
 // use supports all the http methods - get, post, put, delete, patch
 server.use("/", HomeRoute)
