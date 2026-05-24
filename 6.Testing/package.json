@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch Theory/5.SuperTest-HTTP/index.test.js",
+    "test:coverage": "jest --coverage",
+    "test:coverage:watch": "jest --watch --coverage"
   },
   "keywords": [],
   "author": "",
@@ -13,5 +15,24 @@
   "type": "commonjs",
   "devDependencies": {
     "jest": "^30.4.2"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "supertest": "^7.2.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "Theory/**/*.js",
+      "!Theory/**/*.test.js",
+      "!**/node_modules/**"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": [
+      "text",
+      "text-summary",
+      "lcov",
+      "html"
+    ]
   }
 }
