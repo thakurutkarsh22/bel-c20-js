@@ -158,7 +158,27 @@ app.listen(3000, () => {
  * 
  */
 
+/**
+ * XSS video live: 
+ * https://www.reddit.com/r/programming/comments/a2way5/this_is_why_you_sanitize_user_input_chat_hacked/?rdt=62919
+ * at 3:18 see the script added by someone 
+ * 
+ * 
+ * 
+ */
+
 // 3. CSRF (Cross Site Request Forgery)
+
+/**
+ * 
+ * 1. login to bank.com -> browser stores your session cookie in plain sight (this is a bad bank)
+ * 2. while we are  logged in we visit cutecat.com (attacker site) 
+ * 3. behind the scenes cutecat.com will send a request to bank.com to transfer 1000 to the attacker
+ *      <form> </form>
+ * 
+ * 4. the browser will send the session cookie to bank.com and bank.com will transfer 1000 to the attacker
+ * 
+ */
 
 
 
