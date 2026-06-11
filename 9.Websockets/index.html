@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Local WebSocket Demo</title>
+</head>
+<body>
+  <h2>WebSocket Local Demo</h2>
+
+  <input onchange="onChange(event)" id="msg" placeholder="Type message" />
+  <button onclick="sendMsg()">Send</button>
+
+  <pre id="log"></pre>
+
+  <script>
+    const ws = new WebSocket("ws://localhost:8089")
+
+    const logElement = document.getElementById("log");
+
+    ws.onopen = () => {
+        logElement.innerHTML += "Connection open!! connected" + "\n";
+        console.log("Connection open!! connected");
+    }
+
+    // recieven message 
+    ws.onmessage = (event) => {
+        const data = event.data;
+        logElement.innerHTML += "recieved data " + data + "\n";
+        console.log("data", data);
+    }
+
+    ws.onclose = () => {
+        logElement.innerHTML += "Disconnected from the server" + "\n";
+        console.log("Disconnected from the server");
+    }
+
+    function onChange(event) {
+        const data = event.target.value;
+        console.log('data', data);
+        if(!data) {
+             ws.send("stop typing".toString());
+        } else {
+            ws.send("someone is typing".toString());
+        }
+        
+    }
+
+    // send the message 
+    function sendMsg() {
+        const inputElement = document.getElementById("msg");
+        const value = inputElement.value;
+        ws.send(value.toString());
+        inputElement.value = "";
+    }
+
+
+  </script>
+</body>
+</html>
