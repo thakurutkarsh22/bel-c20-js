@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "tsc && node dist/2.Static.js"
+    "dev": "tsc && node dist/7.Composition.js"
   },
   "license": "ISC",
   "devDependencies": {
