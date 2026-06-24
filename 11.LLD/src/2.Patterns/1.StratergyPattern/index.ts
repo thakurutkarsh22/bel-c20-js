@@ -28,12 +28,14 @@ interface IPaymentMethod {
 
 class UpiPaymentStratergy implements IPaymentMethod {
     pay(amount: number): void {
+        // actual nCPI 
         console.log(`Processing UPI payment of ${amount}`);
     }
 }
 
 class CardPaymentStratergy implements IPaymentMethod {
     pay(amount: number): void {
+        // Master card, visa
         console.log(`Processing card payment of ${amount}`);
     }
 }

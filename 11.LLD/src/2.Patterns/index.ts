@@ -8,3 +8,4 @@
  * Structural patterns - how objects are composed to form larger structures (how objects are composed to form larger structures)
  * 
  */
+
