@@ -1,0 +1,100 @@
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="parking-spot-uml" name="ParkingSpot UML">
+    <mxGraphModel dx="900" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ParkingSpot class -->
+        <mxCell id="ps" value="ParkingSpot" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="280" height="252" as="geometry" />
+        </mxCell>
+        <mxCell id="ps-a1" value="- id: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="ps">
+          <mxGeometry y="26" width="280" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="ps-a2" value="- spotType: VehicleType" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;" vertex="1" parent="ps">
+          <mxGeometry y="48" width="280" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="ps-a3" value="- vehicle: Vehicle | null" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;" vertex="1" parent="ps">
+          <mxGeometry y="70" width="280" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="ps-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];" vertex="1" parent="ps">
+          <mxGeometry y="92" width="280" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="ps-m1" value="+ constructor(id, spotType, vehicle)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;" vertex="1" parent="ps">
+          <mxGeometry y="100" width="280" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="ps-m2" value="+ getId(): string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;" vertex="1" parent="ps">
+          <mxGeometry y="122" width="280" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="ps-m3" value="+ getSpotType(): VehicleType" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;" vertex="1" parent="ps">
+          <mxGeometry y="144" width="280" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="ps-m4" value="+ getVehicle(): Vehicle | null" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;" vertex="1" parent="ps">
+          <mxGeometry y="166" width="280" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="ps-m5" value="+ isAvailable(): boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;" vertex="1" parent="ps">
+          <mxGeometry y="188" width="280" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="ps-m6" value="+ canFit(customerVehicle): boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;" vertex="1" parent="ps">
+          <mxGeometry y="210" width="280" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="ps-m7" value="+ park(customerVehicle): boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;" vertex="1" parent="ps">
+          <mxGeometry y="232" width="280" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="ps-m8" value="+ unpark(): Vehicle | null" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;" vertex="1" parent="ps">
+          <mxGeometry y="254" width="280" height="22" as="geometry" />
+        </mxCell>
+
+        <!-- Vehicle class -->
+        <mxCell id="veh" value="Vehicle" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="480" y="80" width="260" height="136" as="geometry" />
+        </mxCell>
+        <mxCell id="veh-a1" value="- vehicleType: VehicleType" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;" vertex="1" parent="veh">
+          <mxGeometry y="26" width="260" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="veh-a2" value="- plateNumber: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;" vertex="1" parent="veh">
+          <mxGeometry y="48" width="260" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="veh-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];" vertex="1" parent="veh">
+          <mxGeometry y="70" width="260" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="veh-m1" value="+ constructor(vehicleType, plateNumber)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;" vertex="1" parent="veh">
+          <mxGeometry y="78" width="260" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="veh-m2" value="+ getType(): VehicleType" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;" vertex="1" parent="veh">
+          <mxGeometry y="100" width="260" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="veh-m3" value="+ getPlateNumber(): string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;" vertex="1" parent="veh">
+          <mxGeometry y="122" width="260" height="22" as="geometry" />
+        </mxCell>
+
+        <!-- VehicleType enum -->
+        <mxCell id="vt" value="&lt;&lt;enumeration&gt;&gt;&#10;VehicleType" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="520" y="320" width="180" height="106" as="geometry" />
+        </mxCell>
+        <mxCell id="vt-1" value="CAR" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;" vertex="1" parent="vt">
+          <mxGeometry y="40" width="180" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="vt-2" value="BIKE" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;" vertex="1" parent="vt">
+          <mxGeometry y="62" width="180" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="vt-3" value="TRUCK" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;" vertex="1" parent="vt">
+          <mxGeometry y="84" width="180" height="22" as="geometry" />
+        </mxCell>
+
+        <!-- Relationships -->
+        <mxCell id="e1" value="0..1" style="endArrow=diamondThin;endFill=0;html=1;startArrow=none;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="veh" target="ps">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="spotType" style="endArrow=open;dashed=1;html=1;endFill=0;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="ps" target="vt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="vehicleType" style="endArrow=open;dashed=1;html=1;endFill=0;edgeStyle=orthogonalEdgeStyle;rounded=0;" edge="1" parent="1" source="veh" target="vt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
