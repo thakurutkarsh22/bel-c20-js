@@ -3,6 +3,11 @@
  * 
  * 
  * logger.info() 
+ * 
+ * when to use it 
+ * -> when you want to ensure that only one instance of a class is created
+ * -> app config should not be created for each page, as one page dark and one page light mode will be bad for user experience
+ * 
  */
 
 
@@ -87,7 +92,7 @@ class AppConfigGood {
 // appConfigGood Object instance of AppConfigGood class
 
 // home page
-const homePage = AppConfigGood.getInstance();
+const homePage = AppConfigGood.getInstance(); // { theme: "light", language: "en" }
 homePage.setSettings({ theme: "dark", language: "en" });
 
 

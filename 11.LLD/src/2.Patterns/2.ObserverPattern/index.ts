@@ -11,6 +11,16 @@
  * - in app notifications
  * 
  * 
+ * when to use it 
+ * -> you have one state chagen and you want to fan out to many independent listners
+ * 
+ * 
+ * when not to use it 
+ * -> you have one state change and you want to fan out to many dependent listners
+ * 
+ * 
+ * 
+ * 
  */
 
 

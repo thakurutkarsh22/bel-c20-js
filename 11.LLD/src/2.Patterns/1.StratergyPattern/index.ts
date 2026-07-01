@@ -1,4 +1,16 @@
 // stratergy pattern is a behavioral pattern
+/**
+ * 
+ * 
+ * several algorithms 
+ * pick one of those algorithms at RUNTIME 
+ * if/else/switch type of logic 
+ * 
+ * when not to do this: 
+ * -> one algorithm
+ * 
+ * 
+ */
 
 
 

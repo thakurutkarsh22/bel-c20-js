@@ -4,6 +4,8 @@
  */
 
 /*
+ BAD EXAMPLE:
+
 class BurgerBad {
 
     private size:  "large" | "medium" | "small";
@@ -55,6 +57,7 @@ class BurgerBad {
 
 // client code
 const burgetWithEveryThing = new BurgerBad("large", 2, true, true, true, true);
+const burgetWithEveryThing = new BurgerBad("large", 2, "datacloud", "industry", "ai team", "sales");
 console.log(burgetWithEveryThing.makeOrder());
 
 

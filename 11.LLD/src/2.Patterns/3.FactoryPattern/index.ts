@@ -6,6 +6,17 @@
  * - create a factory class that creates objects of a class
  * 
  * // i want to have the decision of object creation from the factory class and client 
+ * 
+ * 
+ * when to use it 
+ * -> when you want to take the ability to create objects from the client code. (so that client is light)
+ * -> 
+ * 
+ * when not to use it 
+ * -> you have a class with only one subclass
+ * 
+ * 
+ * 
  */
 
 

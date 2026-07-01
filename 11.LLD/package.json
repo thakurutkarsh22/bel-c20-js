@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "tsc && node dist/index.js"
+    "dev": "tsc && node dist/2.Patterns/7.ChainOfResponsibilityPattern/index.js"
   },
   "license": "ISC",
   "devDependencies": {
