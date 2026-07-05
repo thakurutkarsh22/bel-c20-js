@@ -24,7 +24,7 @@ class ParkingSpot {
         return this.vehicle;
     }
 
-    // ------- your methods here | behaviour of the parking lot -------
+    // ------- your methods here | behaviour of the parking spot -------
 
     isAvailable(): boolean {
         return this.vehicle === null || this.vehicle === undefined;

@@ -40,6 +40,7 @@ import Vehicle from "./Vehicle";
  * 3
  * 4
  * 5
+ * 6
  * 
  * 
  * 92183yo3ur1831
@@ -63,17 +64,17 @@ class Ticket {
 
     static readonly SECONDS_IN_HOUR = 1000 * 60 * 60;
 
-    private id: string;  
+    private id: string;  // uniqueforLot + vehicleNumber
     private vehicle: Vehicle;
     private entryTime: Date;
-    private exitTime: Date;
+    private exitTime: Date | null;
     private parkingSpot: ParkingSpot;
 
     // pricing strategy (dependency injection)
     private prisingStratergy: IPricingStratergy; // BikePricing | CarPricing | TruckPricing
 
 
-    constructor(id: string, vehicle: Vehicle, entryTime: Date, exitTime: Date, parkingSpot: ParkingSpot, prisingStratergy: IPricingStratergy) {
+    constructor(id: string, vehicle: Vehicle, entryTime: Date, exitTime: Date | null, parkingSpot: ParkingSpot, prisingStratergy: IPricingStratergy) {
         this.id = id;
         this.vehicle = vehicle;
         this.entryTime = entryTime;
@@ -94,7 +95,7 @@ class Ticket {
         return this.entryTime;
     }
 
-    getExitTime(): Date {
+    getExitTime(): Date | null {
         return this.exitTime;
     }
 
@@ -102,7 +103,7 @@ class Ticket {
         return this.parkingSpot;
     }
 
-    // getPricingStrategy(): PricingStrategy {
+    // getPricingStrategy(): IPricingStratergy {
     //     return this.pricingStrategy;
     // }
 
@@ -122,6 +123,8 @@ class Ticket {
     }
 
 }
+
+export default Ticket;
 
 
 
